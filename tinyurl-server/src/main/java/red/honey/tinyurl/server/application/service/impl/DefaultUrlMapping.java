@@ -27,7 +27,7 @@ import static red.honey.tinyurl.server.application.constant.LockKey.URL_LOCK;
  */
 @Service
 @Slf4j
-public class DefaultUrlMapping implements UrlMapping<String> {
+public class DefaultUrlMapping implements UrlMapping, red.honey.tinyurl.server.application.service.BloomFilter<String> {
 
     public volatile BloomFilter<String> bloomFilter;
     @Autowired
@@ -60,10 +60,10 @@ public class DefaultUrlMapping implements UrlMapping<String> {
                 } catch (Exception e) {
                     log.error("mapping url to tiny url happen error.", e);
                     throw new CustomMappingHasExistException("mapping url to tiny url happen error.", e);
-                }finally {
+                } finally {
                     redisLock.unlock(URL_LOCK, 0);
                 }
-            }else {
+            } else {
                 redisLock.unlock(URL_LOCK, 0);
                 return tinyUrlService.obtainTinyUrl(url);
             }

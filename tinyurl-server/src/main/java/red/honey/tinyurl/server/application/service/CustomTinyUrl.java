@@ -9,7 +9,7 @@ import red.honey.tinyurl.exception.CustomTinyUrlException;
 public interface CustomTinyUrl extends AbstractTinyUrl {
 
     /**
-     * 通过长链接获取短链接
+     * 通过长链接自定义短链接
      *
      * @param url     长链接
      * @param tinyUrl 自定义短链接

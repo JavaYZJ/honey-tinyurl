@@ -27,7 +27,7 @@ public class TinyUrlController {
     @Resource(name = "vipTinyUrl")
     private VipTinyUrl vipTinyUrl;
     @Autowired
-    private UrlMapping<String> defaultUrlMapping;
+    private UrlMapping defaultUrlMapping;
     @Autowired
     private AbstractTinyUrl defaultAbstractTinyUrl;
     @Autowired

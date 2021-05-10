@@ -3,7 +3,7 @@ package red.honey.tinyurl.server.application.service;
 /**
  * @author yangzhijie
  */
-public interface UrlMapping<T> extends BloomFilter<T> {
+public interface UrlMapping {
 
 
     /**
