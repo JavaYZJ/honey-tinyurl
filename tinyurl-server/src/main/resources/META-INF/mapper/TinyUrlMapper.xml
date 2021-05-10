@@ -1,0 +1,44 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="red.honey.tinyurl.server.application.dao.UrlMappingMapper">
+
+
+    <insert id="insertUrl" useGeneratedKeys="true" keyProperty="tinyUrl.id">
+        insert into t_url_mapping(url, keyword, type)
+        VALUES (#{tinyUrl.url}, #{tinyUrl.keyword}, #{tinyUrl.type.code})
+    </insert>
+    <update id="updateUrl">
+        update t_url_mapping
+        <set>
+            url = #{tinyUrl.url},
+            keyword = #{tinyUrl.keyword}
+        </set>
+        where id = #{tinyUrl.id} and is_deleted = 0
+    </update>
+    <select id="obtainUrl" resultType="java.lang.String">
+        select url
+        from t_url_mapping
+        <where>
+            keyword = #{keyword}
+            <if test="type != null">
+                and type = #{type.code}
+            </if>
+            and is_deleted = 0
+        </where>
+    </select>
+    <select id="obtainTinyUrl" resultType="java.lang.String">
+        select keyword
+        from t_url_mapping
+        where url = #{url}
+          and is_deleted = 0
+        limit 1
+    </select>
+    <select id="customMappingHasExist" resultType="boolean">
+        select (select count(id)
+                from t_url_mapping
+                where url = #{url}
+                  and type = 1
+                  and is_deleted = 0
+               ) > 0
+    </select>
+
+</mapper>
