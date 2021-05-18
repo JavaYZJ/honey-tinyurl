@@ -4,7 +4,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://49.235.39.179:3305/honey-tinyurl?useUnicode=true&useSSL=false&useJDBCCompliantTimezoneShift=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8&allowMultiQueries=true
     username: root
-    password: yangzhijie@cvte.com
+    password: yangzhijie@honey.red
 
   redis:
     host: 49.235.39.179
