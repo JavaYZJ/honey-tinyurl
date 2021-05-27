@@ -21,25 +21,25 @@ import static red.honey.tinyurl.server.application.constant.LockKey.CUSTOM_TINY_
 public class VipTinyUrl extends DefaultAbstractTinyUrl implements CustomTinyUrl {
 
     private HoneyRedisLock redisLock;
-    private UrlMapping<String> urlMapping;
+    private UrlMapping urlMapping;
     private CustomTinyUrlStrategy strategy = new DefaultCustomTinyUrlStrategy();
     private AbstractTinyUrl tinyUrlService;
 
     public VipTinyUrl() {
     }
 
-    public VipTinyUrl(UrlMapping<String> urlMapping, AbstractTinyUrl tinyUrlService) {
+    public VipTinyUrl(UrlMapping urlMapping, AbstractTinyUrl tinyUrlService) {
         this.urlMapping = urlMapping;
         this.tinyUrlService = tinyUrlService;
     }
 
-    public VipTinyUrl(UrlMapping<String> urlMapping, CustomTinyUrlStrategy strategy, AbstractTinyUrl tinyUrlService) {
+    public VipTinyUrl(UrlMapping urlMapping, CustomTinyUrlStrategy strategy, AbstractTinyUrl tinyUrlService) {
         this.urlMapping = urlMapping;
         this.strategy = strategy;
         this.tinyUrlService = tinyUrlService;
     }
 
-    public void setUrlMapping(UrlMapping<String> urlMapping) {
+    public void setUrlMapping(UrlMapping urlMapping) {
         this.urlMapping = urlMapping;
     }
 
@@ -82,7 +82,7 @@ public class VipTinyUrl extends DefaultAbstractTinyUrl implements CustomTinyUrl 
             try {
                 if (!this.urlMapping.isExists(url)) {
                     tinyUrlService.insertUrl(tinyUrlPo);
-                    return this.urlMapping.createBloomFilter(DEFAULT_BLOOM_FILTER_NAME, Integer.MAX_VALUE, 0.01).add(url);
+                    return this.createBloomFilter(DEFAULT_BLOOM_FILTER_NAME, Integer.MAX_VALUE, 0.01).add(url);
                 }
                 // 如果用的是布隆过滤器，此时的存在不一定存在
                 // 此时可通过策略决策作补偿
